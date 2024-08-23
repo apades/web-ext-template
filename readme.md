@@ -11,6 +11,7 @@
 ## 如何开始
 
 ### 文件结构
+```
 src
 ├─background
 │      index.ts
@@ -19,6 +20,7 @@ src
        all-frames.ts        运行在当前页面和所有iframe的脚本
        main.ts              运行在当前页面的脚本
        world.ts             运行在top window的脚本，可以劫持注入原网站的js数据
+```
 
 ### 环境
 - pnpm >=9.0.0
