@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-type DownData = {
+interface DownData {
   e: PointerEvent
   target: HTMLDivElement
   translateX: number
@@ -10,7 +10,7 @@ type DownData = {
   height: number
 }
 
-type MoveData = {
+interface MoveData {
   e: PointerEvent
   target: HTMLDivElement
   moveX: number
@@ -22,7 +22,7 @@ type MoveData = {
   downHeight: number
 }
 
-type UpData = {
+interface UpData {
   e: PointerEvent
   target: HTMLDivElement
   moveX: number
@@ -36,7 +36,7 @@ type UpData = {
   right: number
 }
 
-type Handle = {
+interface Handle {
   onDown?: (down: DownData) => void
   onMove?: (move: MoveData) => void
   onUp?: (up: UpData) => void
@@ -49,7 +49,7 @@ function parseStyleValue(style: CSSStyleDeclaration) {
   try {
     const value = CSSStyleValue.parse(
       'transform',
-      style.transform || 'translate(0px, 0px)'
+      style.transform || 'translate(0px, 0px)',
     ) as CSSTransformValue
     for (const i of value) {
       if (i instanceof CSSTranslate) {
@@ -58,14 +58,15 @@ function parseStyleValue(style: CSSStyleDeclaration) {
         tZ = i.z.to('px').value
       }
     }
-  } catch (e) {
+  }
+  catch (e) {
     console.error(e)
   }
 
   return {
     translateX: tX,
     translateY: tY,
-    translateZ: tZ
+    translateZ: tZ,
   }
 }
 
@@ -82,18 +83,17 @@ export default function useDrag(handle: Handle) {
 
     const handleMove = (e: PointerEvent) => {
       xy = [e.clientX, e.clientY]
-      handle?.onMove &&
-        handle.onMove({
-          e: e,
-          target: element!,
-          moveX: xy[0] - xy1[0],
-          moveY: xy[1] - xy1[1],
-          downTranslateX: downTranslate[0],
-          downTranslateY: downTranslate[1],
-          downTranslateZ: downTranslate[2],
-          downWidth: downWidth,
-          downHeight: downHeight
-        })
+      handle.onMove?.({
+        e,
+        target: element!,
+        moveX: xy[0] - xy1[0],
+        moveY: xy[1] - xy1[1],
+        downTranslateX: downTranslate[0],
+        downTranslateY: downTranslate[1],
+        downTranslateZ: downTranslate[2],
+        downWidth,
+        downHeight,
+      })
     }
 
     const handlePointerDown = (e: PointerEvent) => {
@@ -107,16 +107,15 @@ export default function useDrag(handle: Handle) {
       downTranslate = [
         transformValue.translateX,
         transformValue.translateY,
-        transformValue.translateZ
+        transformValue.translateZ,
       ]
-      handle?.onDown &&
-        handle.onDown({
-          ...transformValue,
-          e: e,
-          target: element!,
-          width: rect.width,
-          height: rect.height
-        })
+      handle.onDown?.({
+        ...transformValue,
+        e,
+        target: element!,
+        width: rect.width,
+        height: rect.height,
+      })
     }
 
     const handlePointerUp = (e: PointerEvent) => {
@@ -124,18 +123,17 @@ export default function useDrag(handle: Handle) {
       element!.releasePointerCapture(e.pointerId)
       const rect = element!.getBoundingClientRect()
 
-      handle.onUp &&
-        handle.onUp({
-          ...parseStyleValue(element!.style),
-          e: e,
-          moveX: xy[0] - xy1[0],
-          moveY: xy[1] - xy1[1],
-          target: element!,
-          bottom: rect.bottom,
-          left: rect.left,
-          top: rect.top,
-          right: rect.right
-        })
+      handle.onUp?.({
+        ...parseStyleValue(element!.style),
+        e,
+        moveX: xy[0] - xy1[0],
+        moveY: xy[1] - xy1[1],
+        target: element!,
+        bottom: rect.bottom,
+        left: rect.left,
+        top: rect.top,
+        right: rect.right,
+      })
     }
 
     if (element) {

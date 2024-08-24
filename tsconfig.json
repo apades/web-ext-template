@@ -1,27 +1,27 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "noImplicitAny": true,
+    "target": "ESNext",
+    "jsx": "react-jsx",
     "lib": [
       "DOM",
       "ESNext",
       "DOM.Iterable"
     ],
-    "target": "ESNext",
+    "experimentalDecorators": true,
+    "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "node",
-    "jsx": "react-jsx",
-    "allowJs": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "downlevelIteration": true,
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "resolveJsonModule": true,
-    "strict": true
+    "allowJs": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "downlevelIteration": true,
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "./src/**/*",
