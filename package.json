@@ -21,7 +21,9 @@
     "dev": "tsup --config scripts/tsup.dev.ts",
     "build": "cross-env NODE_ENV=production tsup --config scripts/tsup.build.ts ",
     "release": "node ./scripts/release.mjs",
-    "archive": "node ./scripts/archive.mjs"
+    "archive": "node ./scripts/archive.mjs",
+    "postinstall": "simple-git-hooks",
+    "lint": "eslint --cache ."
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -48,10 +50,10 @@
     "enquirer": "^2.4.1",
     "esbuild": "^0.23.1",
     "eslint": "^9.9.0",
-    "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.11",
     "fs-extra": "^11.2.0",
     "less": "^4.2.0",
+    "lint-staged": "^15.2.9",
     "postcss": "^8.4.41",
     "postcss-load-config": "^6.0.1",
     "simple-git-hooks": "^2.11.1",
