@@ -1,4 +1,3 @@
-import '@/styles'
 import { createRoot } from 'react-dom/client'
 import Browser from 'webextension-polyfill'
 import FloatButton from './views/FloatButton'
@@ -11,7 +10,7 @@ import { runCodeInWorldScripts } from '@/utils'
 
   const styleEl = document.createElement('link')
   styleEl.setAttribute('rel', 'stylesheet')
-  styleEl.setAttribute('href', Browser.runtime.getURL('main.css'))
+  styleEl.setAttribute('href', Browser.runtime.getURL('style.css'))
   shadowRoot.appendChild(styleEl)
 
   const rootEl = document.createElement('div')

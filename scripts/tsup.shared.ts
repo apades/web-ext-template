@@ -46,6 +46,7 @@ export const shareConfig: Parameters<typeof defineConfig>[0] = {
     'all-frames': pr('../src/content-scripts/all-frames.ts'),
     // popup的脚本
     'popup': pr('../src/popup/index.tsx'),
+    'style': pr('../src/styles/index.ts'),
   },
   noExternal: [/(.*)/],
   async onSuccess() {
