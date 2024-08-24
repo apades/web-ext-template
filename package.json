@@ -15,7 +15,7 @@
   "keywords": [],
   "engines": {
     "pnpm": ">=9.0.0",
-    "node": ">=18.0.0"
+    "node": ">=18.20.0"
   },
   "scripts": {
     "dev": "tsup --config scripts/tsup.dev.ts",
