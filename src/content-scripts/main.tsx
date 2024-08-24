@@ -2,6 +2,7 @@ import '@/styles'
 import { createRoot } from 'react-dom/client'
 import Browser from 'webextension-polyfill'
 import FloatButton from './views/FloatButton'
+import { runCodeInWorldScripts } from '@/utils'
 
 (async () => {
   const container = document.createElement('div')
@@ -20,3 +21,11 @@ import FloatButton from './views/FloatButton'
 
   document.body.appendChild(container)
 })()
+
+// 和world脚本通信
+runCodeInWorldScripts((a: string) => {
+  return `top window: ${window.____inject_data}\ninput args:${a}`
+}, ['input']).then((res) => {
+  // eslint-disable-next-line no-console
+  console.log(`run code rs\n${res}`)
+})
