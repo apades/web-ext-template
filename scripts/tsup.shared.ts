@@ -51,18 +51,13 @@ export const shareConfig: Parameters<typeof defineConfig>[0] = {
   noExternal: [/(.*)/],
   async onSuccess() {
     fs.copySync(pr('../_locales'), pr(outDir, './_locales'))
-    fs.copySync(pr('../static'), pr(outDir, './assets'))
+    fs.copySync(pr('../static'), pr(outDir, './static'))
 
-    manifest.web_accessible_resources = [
-      {
-        resources: fs.readdirSync(pr(outDir)),
-        matches: ['<all_urls>'],
-      },
-      {
-        resources: ['assets/icon.png'],
-        matches: ['<all_urls>'],
-      },
-    ]
+    manifest.web_accessible_resources ??= []
+    manifest.web_accessible_resources.push({
+      resources: fs.readdirSync(pr(outDir)),
+      matches: ['<all_urls>'],
+    })
     fs.writeJSONSync(pr(outDir, './manifest.json'), manifest, { spaces: 2 })
 
     const popupHtmlFile = pr('../src/popup/index.html')
