@@ -8,7 +8,7 @@ const Popup: FC = () => {
       <div
         style={{ width: 100, padding: 6 }}
         onClick={() => {
-          setCount(c => c++)
+          setCount(c => c + 1)
         }}
       >
         {count}
